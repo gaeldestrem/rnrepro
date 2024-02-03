@@ -1,34 +1,27 @@
 import {Button, StyleSheet, TextInput, View} from 'react-native';
-import React, {useRef, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 
 export const TestTextInput = () => {
-  const ref = useRef<TextInput>();
+  const ref = useRef<TextInput | null>(null);
   const [value, setValue] = useState('');
 
   console.log('value', value);
 
+  const clearTextInput = useCallback(() => {
+    setValue('');
+    ref.current?.clear();
+    ref.current?.setNativeProps({text: ''});
+  }, []);
+
   return (
     <View style={styles.viewContainer}>
       <TextInput
-        autoFocus
         ref={ref}
         value={value}
-        textAlignVertical={'center'}
         onChangeText={setValue}
-        // @ts-ignore
-        enableFocusRing={false}
         style={styles.input}
-        placeholderTextColor={'test'}
-        placeholder={'test'}
       />
-      <Button
-        title="clear"
-        onPress={() => {
-          setValue('');
-          ref.current?.clear();
-          ref.current?.setNativeProps({text: ''});
-        }}
-      />
+      <Button title="clear" onPress={clearTextInput} />
     </View>
   );
 };
