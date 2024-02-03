@@ -7,7 +7,10 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "setup:fabric-hermes": "rm -rf node_modules && yarn && cd macos && rm -rf build Pods Podfile.lock && bundle install && USE_HERMES=1 RCT_NEW_ARCH_ENABLED=1 bundle exec pod install --verbose && cd .",
+    "setup:fabric": "rm -rf node_modules && yarn && cd macos && bundle install && RCT_NEW_ARCH_ENABLED=1 bundle exec pod install --verbose && cd ..",
+    "setup:chakra": "rm -rf node_modules && yarn && cd macos && bundle install && bundle exec pod install --verbose && cd .."
   },
   "dependencies": {
     "react": "18.2.0",
